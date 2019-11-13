@@ -1,0 +1,34 @@
+{
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "minimum_chrome_version": "56.0.0",
+  "name": "袖里乾坤",
+  "short_name": "袖里乾坤",
+  "description": "身外无一物，袖里藏乾坤。这是一款简洁，美观，上档次的插件管理收纳插件。专一的功能，专注的享受。",
+  "icons": {
+    "16": "static/icon/truck.png",
+    "48": "static/icon/truck.png",
+    "128": "static/icon/truck.png"
+  },
+  "background": {
+    "page": "background.html",
+    "persistent": true
+  },
+  "browser_action": {
+    "default_icon": {
+      "19": "static/icon/truck.png",
+      "38": "static/icon/truck.png"
+    },
+    "default_popup": "index.html",
+    "default_title": "袖里乾坤"
+  },
+  "permissions": [
+    "tabs",
+    "notifications",
+    "storage",
+    "bookmarks",
+    "management",
+    "contentSettings"
+  ],
+  "web_accessible_resources": ["static/js/*"]
+}
