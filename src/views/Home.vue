@@ -4,8 +4,18 @@
     <div class="header">
       <div class="search">
         <i class="iconfont iconicon_search"></i>
-        <input type="text" placeholder="搜索插件" autofocus v-model="keyWords" @keyup="searchExts" />
-        <i class="iconfont iconguanbi" v-show="keyWords" @click="getExtsData"></i>
+        <input
+          type="text"
+          placeholder="搜索插件"
+          autofocus
+          v-model="keyWords"
+          @keyup="searchExts"
+        />
+        <i
+          class="iconfont iconguanbi"
+          v-show="keyWords"
+          @click="getExtsData"
+        ></i>
       </div>
       <i
         :class="[
@@ -17,7 +27,7 @@
       ></i>
     </div>
     <!-- 主要面板 -->
-    <div :class="['content', {'list': viewList}]">
+    <div :class="['content', { list: viewList }]">
       <transition-group tag="div" name="scale" class="enabledExts">
         <Item
           v-for="(v, i) in enabledExts"
@@ -30,7 +40,9 @@
         ></Item>
       </transition-group>
       <!-- 当无已启动插件时 -->
-      <p class="noEnableExt" v-show="!enabledExts.length">还没有启动中的插件QAQ</p>
+      <p class="noEnableExt" v-show="!enabledExts.length">
+        还没有启动中的插件QAQ
+      </p>
       <transition-group tag="div" name="scale" class="disabledExts">
         <Item
           v-for="(v, i) in disabledExts"
