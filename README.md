@@ -1,29 +1,13 @@
-# testplugin
+# 袖里乾坤，掌中天地
 
-## Project setup
-```
-yarn install
-```
+## 这是一款简洁方便的插件收纳管理器
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+## 更新日志
 
-### Compiles and minifies for production
-```
-yarn run build
-```
+- 2019/11/17 0.0.0 版本
 
-### Run your tests
-```
-yarn run test
-```
+  - 插件的激活与关闭功能实现
+  - 本地插件搜索功能
+  - 插件列表视图切换
 
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+身外无一物，袖里藏乾坤。

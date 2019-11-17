@@ -1,7 +1,9 @@
 <template>
   <div class="tab">
-    <div v-for="v in tabs" :key="v.title" :class="[{'active': v.active}, 'items']">
-      <span>{{ v.title }}</span>
+    <div v-for="v in tabs" :key="v.title" class="items">
+      <router-link :to="{ name: v.to }" replace active-class="active">{{
+        v.title
+      }}</router-link>
     </div>
   </div>
 </template>
@@ -11,10 +13,13 @@ export default {
   data() {
     return {
       tabs: [
-        { title: "首页", active: true },
-        { title: "设置", active: false }
+        { title: "首页", to: "home" },
+        { title: "设置", to: "setting" }
       ]
     };
+  },
+  methdos: {
+    changeRouter() {}
   }
 };
 </script>
@@ -37,6 +42,17 @@ export default {
     justify-content: center;
     font-size: 14px;
     cursor: pointer;
+    a {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+      &.active {
+        color: #1b93fb;
+      }
+    }
   }
 }
 </style>

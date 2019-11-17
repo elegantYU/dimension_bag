@@ -25,7 +25,9 @@ export default {
   background-color: #fff;
   width: 495px;
   height: auto;
+  max-height: 545px;
   box-shadow: rgba(#000, 0.25) 0 0 20px 0;
   margin: 0 auto;
+  overflow: hidden;
 }
 </style>
