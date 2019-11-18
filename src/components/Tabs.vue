@@ -1,7 +1,9 @@
 <template>
   <div class="tab">
     <div v-for="v in tabs" :key="v.title" class="items">
-      <router-link :to="{ name: v.to }" replace active-class="active">{{v.title}}</router-link>
+      <router-link :to="{ name: v.to }" replace active-class="active">{{
+        v.title
+      }}</router-link>
     </div>
   </div>
 </template>

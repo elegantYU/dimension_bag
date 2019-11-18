@@ -1,5 +1,8 @@
 <template>
-  <div :class="['item', { disabled: !enabled }, { list: list }]" @click="switchStatus">
+  <div
+    :class="['item', { disabled: !enabled }, { list: list }]"
+    @click="switchStatus"
+  >
     <img :src="src" alt :title="title" />
     <!-- 列表视图 -->
     <span v-show="list">{{ title }}</span>
