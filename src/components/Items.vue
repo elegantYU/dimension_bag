@@ -1,8 +1,5 @@
 <template>
-  <div
-    :class="['item', { disabled: !enabled }, { list: list }]"
-    @click="switchStatus"
-  >
+  <div :class="['item', { disabled: !enabled }, { list: list }]" @click="switchStatus">
     <img :src="src" alt :title="title" />
     <!-- 列表视图 -->
     <span v-show="list">{{ title }}</span>
@@ -49,7 +46,7 @@ export default {
   }
   &:hover {
     img {
-      transition: all 0.2 linear;
+      transition: all 0.2s linear;
       transform: scale(1.05);
     }
     &.disabled img {

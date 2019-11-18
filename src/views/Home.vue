@@ -4,18 +4,8 @@
     <div class="header">
       <div class="search">
         <i class="iconfont iconicon_search"></i>
-        <input
-          type="text"
-          placeholder="搜索插件"
-          autofocus
-          v-model="keyWords"
-          @keyup="searchExts"
-        />
-        <i
-          class="iconfont iconguanbi"
-          v-show="keyWords"
-          @click="getExtsData"
-        ></i>
+        <input type="text" placeholder="搜索插件" autofocus v-model="keyWords" @keyup="searchExts" />
+        <i class="iconfont iconguanbi" v-show="keyWords" @click="getExtsData"></i>
       </div>
       <i
         :class="[
@@ -28,7 +18,7 @@
     </div>
     <!-- 主要面板 -->
     <div :class="['content', { list: viewList }]">
-      <transition-group tag="div" name="scale" class="enabledExts">
+      <transition-group tag="div" class="enabledExts">
         <Item
           v-for="(v, i) in enabledExts"
           :key="v.id"
@@ -40,10 +30,8 @@
         ></Item>
       </transition-group>
       <!-- 当无已启动插件时 -->
-      <p class="noEnableExt" v-show="!enabledExts.length">
-        还没有启动中的插件QAQ
-      </p>
-      <transition-group tag="div" name="scale" class="disabledExts">
+      <p class="noEnableExt" v-show="!enabledExts.length">还没有启动中的插件QAQ</p>
+      <transition-group tag="div" class="disabledExts">
         <Item
           v-for="(v, i) in disabledExts"
           :key="v.id"
@@ -194,7 +182,7 @@ export default {
     }
   }
   .content {
-    max-height: 365px;
+    height: 445px;
     overflow: overlay;
     .enabledExts {
       width: 100%;
@@ -231,14 +219,5 @@ export default {
       }
     }
   }
-}
-.scale-enter-active,
-.scale-leave-active {
-  transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-.scale-leave-to,
-.scale-enter {
-  transform: scale(0.6);
-  opacity: 0;
 }
 </style>

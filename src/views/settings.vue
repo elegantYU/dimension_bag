@@ -8,6 +8,5 @@ export default {};
 
 <style lang="scss" scoped>
 .setting {
-  height: 545px;
 }
 </style>

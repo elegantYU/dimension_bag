@@ -2,7 +2,7 @@
  * @Author: elegantYU
  * @Date: 2019-11-16 10:40:14
  * @Last Modified by: elegantYU
- * @Last Modified time: 2019-11-17 09:52:19
+ * @Last Modified time: 2019-11-18 17:45:51
  */
 import { APPID, getAll, setEnabled } from "./utils";
 
@@ -27,7 +27,6 @@ const compose = map => (action, sendResponse) => (...args) =>
 const handler = compose(map);
 // 监听management相关的指令
 chrome.runtime.onMessage.addListener(({ action, data }, _, sendResponse) => {
-  console.log(data);
   handler(action, sendResponse)({ APPID, data });
   return true;
 });
