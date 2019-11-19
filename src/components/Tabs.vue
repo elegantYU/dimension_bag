@@ -1,9 +1,11 @@
 <template>
   <div class="tab">
     <div v-for="v in tabs" :key="v.title" class="items">
-      <router-link :to="{ name: v.to }" replace active-class="active">{{
+      <router-link :to="{ name: v.to }" replace active-class="active">
+        {{
         v.title
-      }}</router-link>
+        }}
+      </router-link>
     </div>
   </div>
 </template>
@@ -14,8 +16,8 @@ export default {
     return {
       tabs: [
         { title: "首页", to: "home" },
-        { title: "推荐", to: "setting" },
-        { title: "设置", to: "setting" }
+        { title: "推荐", to: "recommend" }
+        // { title: "设置", to: "setting" }
       ]
     };
   },

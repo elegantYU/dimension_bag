@@ -2,7 +2,7 @@
  * @Author: elegantYU
  * @Date: 2019-11-16 10:40:14
  * @Last Modified by: elegantYU
- * @Last Modified time: 2019-11-18 17:45:51
+ * @Last Modified time: 2019-11-19 14:19:20
  */
 import { APPID, getAll, setEnabled } from "./utils";
 
@@ -14,10 +14,8 @@ const map = new Map([
   ],
   [
     "setEnabled",
-    sendResponse => ({ data: { id, enabled } }) => {
-      console.log("...", id, enabled);
-      setEnabled(id, enabled).then(data => sendResponse(data));
-    }
+    sendResponse => ({ data: { id, enabled } }) =>
+      setEnabled(id, enabled).then(data => sendResponse(data))
   ]
 ]);
 

@@ -4,18 +4,8 @@
     <div class="header">
       <div class="search">
         <i class="iconfont iconicon_search"></i>
-        <input
-          type="text"
-          placeholder="搜索插件"
-          autofocus
-          v-model="keyWords"
-          @keyup="searchExts"
-        />
-        <i
-          class="iconfont iconguanbi"
-          v-show="keyWords"
-          @click="getExtsData"
-        ></i>
+        <input type="text" placeholder="搜索插件" autofocus v-model="keyWords" @keyup="searchExts" />
+        <i class="iconfont iconguanbi" v-show="keyWords" @click="getExtsData"></i>
       </div>
       <i
         :class="[
@@ -32,24 +22,18 @@
         <Item
           v-for="(v, i) in enabledExts"
           :key="v.id"
-          :enabled="true"
-          :src="v.icon"
-          :title="v.name"
+          :detail="v"
           :list="viewList"
           @switch="changeEnable(i, true)"
         ></Item>
       </transition-group>
       <!-- 当无已启动插件时 -->
-      <p class="noEnableExt" v-show="!enabledExts.length">
-        还没有启动中的插件QAQ
-      </p>
+      <p class="noEnableExt" v-show="!enabledExts.length">还没有启动中的插件QAQ</p>
       <transition-group tag="div" class="disabledExts">
         <Item
           v-for="(v, i) in disabledExts"
           :key="v.id"
-          :enabled="false"
-          :src="v.icon"
-          :title="v.name"
+          :detail="v"
           :list="viewList"
           @switch="changeEnable(i, false)"
         ></Item>
@@ -61,6 +45,7 @@
 <script>
 import Item from "../components/Items.vue";
 import { appId, getAll, setEnabled } from "./service/management";
+import { nameSort } from "./service/utils";
 
 export default {
   data() {
@@ -88,13 +73,14 @@ export default {
           return getAll();
         })
         .then(data => {
+          console.log(data);
           const noThemeAndSelf = data
             .filter(v => v.type !== "theme")
             .filter(v => v.id !== this.selfId)
             .map(v => ({ ...v, icon: v.icons[v.icons.length - 1].url }));
 
-          this.enabledExts = noThemeAndSelf.filter(v => v.enabled);
-          this.disabledExts = noThemeAndSelf.filter(v => !v.enabled);
+          this.enabledExts = nameSort(noThemeAndSelf.filter(v => v.enabled));
+          this.disabledExts = nameSort(noThemeAndSelf.filter(v => !v.enabled));
           this.$store.dispatch("setEnabledExts", this.enabledExts);
           this.$store.dispatch("setDisabledExts", this.disabledExts);
 
