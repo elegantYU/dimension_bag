@@ -1,23 +1,23 @@
 <template>
   <div id="app">
-    <Tabs></Tabs>
+    <!-- <Tabs></Tabs> -->
     <router-view />
   </div>
 </template>
 
 <script>
-import Tabs from "./components/Tabs.vue";
+// import Tabs from "./components/Tabs.vue";
 
 export default {
   components: {
-    Tabs
+    // Tabs
   }
 };
 </script>
 
 <style lang="scss" scoped>
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

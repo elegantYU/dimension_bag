@@ -2,7 +2,7 @@
  * @Author: elegantYU
  * @Date: 2019-11-16 11:19:05
  * @Last Modified by: elegantYU
- * @Last Modified time: 2019-11-17 09:52:32
+ * @Last Modified time: 2019-11-21 18:17:25
  */
 // 插件本身id
 const APPID = chrome.runtime.id;
@@ -29,4 +29,12 @@ const setEnabled = (id, enabled) =>
     chrome.management.setEnabled(id, enabled, () => resolve());
   });
 
-export { APPID, getSelf, getAll, setEnabled };
+// 卸载
+const uninstall = id =>
+  new Promise(resolve => {
+    chrome.management.uninstall(id, () => {
+      resolve();
+    });
+  });
+
+export { APPID, getSelf, getAll, setEnabled, uninstall };

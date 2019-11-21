@@ -2,11 +2,11 @@
  * @Author: elegantYU
  * @Date: 2019-11-16 10:40:14
  * @Last Modified by: elegantYU
- * @Last Modified time: 2019-11-19 14:19:20
+ * @Last Modified time: 2019-11-21 18:18:35
  */
-import { APPID, getAll, setEnabled } from "./utils";
+import { APPID, getAll, setEnabled, uninstall } from "./utils";
 
-const map = new Map([
+const actionMap = new Map([
   ["appId", sendResponse => ({ APPID }) => sendResponse(APPID) || true],
   [
     "getAll",
@@ -16,15 +16,21 @@ const map = new Map([
     "setEnabled",
     sendResponse => ({ data: { id, enabled } }) =>
       setEnabled(id, enabled).then(data => sendResponse(data))
+  ],
+  [
+    "uninstall",
+    sendResponse => ({ data: { id } }) => uninstall(id).then(sendResponse)
   ]
 ]);
 
-const compose = map => (action, sendResponse) => (...args) =>
-  map.get(action)(sendResponse)(...args);
+const compose = actionMap => (action, sendResponse) => (...args) =>
+  actionMap.get(action)(sendResponse)(...args);
 
-const handler = compose(map);
+const handler = compose(actionMap);
 // 监听management相关的指令
-chrome.runtime.onMessage.addListener(({ action, data }, _, sendResponse) => {
-  handler(action, sendResponse)({ APPID, data });
-  return true;
-});
+chrome.runtime.onMessage.addListener(
+  ({ command, action, data }, _, sendResponse) => {
+    command === "management" && handler(action, sendResponse)({ APPID, data });
+    return true;
+  }
+);

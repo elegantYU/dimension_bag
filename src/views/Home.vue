@@ -4,8 +4,18 @@
     <div class="header">
       <div class="search">
         <i class="iconfont iconicon_search"></i>
-        <input type="text" placeholder="搜索插件" autofocus v-model="keyWords" @keyup="searchExts" />
-        <i class="iconfont iconguanbi" v-show="keyWords" @click="getExtsData"></i>
+        <input
+          type="text"
+          placeholder="搜索插件"
+          autofocus
+          v-model="keyWords"
+          @keyup="searchExts"
+        />
+        <i
+          class="iconfont iconguanbi"
+          v-show="keyWords"
+          @click="getExtsData"
+        ></i>
       </div>
       <i
         :class="[
@@ -24,17 +34,21 @@
           :key="v.id"
           :detail="v"
           :list="viewList"
+          :index="i"
           @switch="changeEnable(i, true)"
         ></Item>
       </transition-group>
       <!-- 当无已启动插件时 -->
-      <p class="noEnableExt" v-show="!enabledExts.length">还没有启动中的插件QAQ</p>
+      <p class="noEnableExt" v-show="!enabledExts.length">
+        还没有启动中的插件QAQ
+      </p>
       <transition-group tag="div" class="disabledExts">
         <Item
           v-for="(v, i) in disabledExts"
           :key="v.id"
           :detail="v"
           :list="viewList"
+          :index="i"
           @switch="changeEnable(i, false)"
         ></Item>
       </transition-group>
@@ -54,7 +68,13 @@ export default {
       viewList: false, //  列表视图
       enabledExts: [], //  已激活插件
       disabledExts: [], //  未激活插件
-      keyWords: null //  搜索关键字
+      keyWords: null, //  搜索关键字
+      currentItem: {
+        //  当前会下拉的item
+        show: false,
+        value: null,
+        index: null
+      }
     };
   },
   components: {
@@ -129,7 +149,7 @@ export default {
 .home {
   background-color: #fff;
   box-sizing: border-box;
-  padding: 10px 0;
+  padding: 20px 0 0;
   .header {
     $headerHeight: 40px;
     height: $headerHeight;
@@ -182,6 +202,7 @@ export default {
   .content {
     height: 445px;
     overflow: overlay;
+    position: relative;
     .enabledExts {
       width: 100%;
       height: auto;

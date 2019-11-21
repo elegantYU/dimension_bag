@@ -1,42 +1,55 @@
 <template>
   <div :class="['item', { disabled: !detail.enabled }, { list: list }]">
     <div class="iconWrapper">
-      <img :src="detail.icon" alt :title="detail.name" @click="switchStatus" />
-      <div class="devIcon" v-show="detail.installType === 'development'">
-        <i class="iconfont iconxiangji"></i>
+      <img
+        :src="detail.icon"
+        alt
+        :title="detail.shortName"
+        @click="switchStatus"
+      />
+      <!-- 类型icon -->
+      <div class="devIcon" v-if="detail.installType === 'development'">
+        <i class="iconfont iconother"></i>
       </div>
-      <!-- 下拉选项 -->
-      <div class="dropBtn iconfont iconcaidan" v-show="!list">
-        <div class="dropMenu">
-          <p>{{ detail.name }}</p>
-          <ul>
-            <li v-for="(v, i) in menu" :key="i">
-              <i :class="['iconfont', v.icon]"></i>
-              <span>{{ v.name }}</span>
-            </li>
-          </ul>
-        </div>
+      <div class="devIcon app" v-else-if="detail.isApp">
+        <i class="iconfont iconapp1"></i>
       </div>
+      <div class="devIcon" v-else-if="!detail.updateUrl">
+        <i class="iconfont icondev"></i>
+      </div>
+      <!-- 下拉按钮 -->
+      <div
+        class="dropBtn iconfont iconcaidan"
+        v-show="!list"
+        @click="isDrop = true"
+      ></div>
     </div>
+    <!-- menu mask -->
+    <div class="mask" v-show="isDrop" @click="isDrop = false"></div>
+    <!-- 下拉菜单 -->
+    <DropMenu :detail="detail" :index="index" v-if="isDrop"></DropMenu>
     <!-- 列表视图 -->
-    <span v-show="list">{{ detail.name }}</span>
+    <span v-show="list">{{ detail.shortName }}</span>
   </div>
 </template>
 
 <script>
+import DropMenu from "../components/DropMenu.vue";
+
 export default {
   data() {
     return {
-      menu: [
-        { icon: "", name: "简介" },
-        { icon: "", name: "配置" },
-        { icon: "", name: "卸载" }
-      ]
+      isDrop: false
     };
   },
   props: {
     detail: Object,
-    list: Boolean
+    list: Boolean,
+    index: Number,
+    dropOptions: Boolean
+  },
+  components: {
+    DropMenu
   },
   methods: {
     switchStatus() {
@@ -52,6 +65,7 @@ export default {
   height: 55px;
   cursor: pointer;
   margin: 0 11px 15px 0;
+  position: relative;
   &:nth-of-type(7n) {
     margin-right: 0;
   }
@@ -77,15 +91,14 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
-      i {
-        width: 100%;
-        height: 100%;
-        &::before {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          color: #fff;
-          font-size: 12px;
+      i::before {
+        font-size: 12px;
+        color: #fff;
+      }
+      &.app {
+        background-color: #1e8ef0;
+        i::before {
+          font-size: 16px;
         }
       }
     }
@@ -100,35 +113,6 @@ export default {
     cursor: pointer;
     &::before {
       font-size: 12px;
-    }
-    .dropMenu {
-      position: absolute;
-      width: 130px;
-      height: 120px;
-      top: 0;
-      left: 0;
-      background-color: #fff;
-      border-radius: 4px;
-      display: flex;
-      flex-direction: column;
-      padding: 0 10px;
-      font-size: 14px;
-      box-shadow: rgba(#000, 0.05) 0 0 10px 0;
-      z-index: 10;
-      p {
-        width: 100%;
-        height: 30px;
-        line-height: 30px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-      ul {
-        li {
-          height: 30px;
-          line-height: 30px;
-        }
-      }
     }
   }
   &.disabled {
@@ -181,5 +165,13 @@ export default {
       color: rgb(46, 48, 49);
     }
   }
+}
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
 }
 </style>
