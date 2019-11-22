@@ -1,12 +1,7 @@
 <template>
   <div :class="['item', { disabled: !detail.enabled }, { list: list }]">
     <div class="iconWrapper">
-      <img
-        :src="detail.icon"
-        alt
-        :title="detail.shortName"
-        @click="switchStatus"
-      />
+      <img :src="detail.icon" alt :title="detail.shortName" @click="switchStatus" />
       <!-- 类型icon -->
       <div class="devIcon" v-if="detail.installType === 'development'">
         <i class="iconfont iconother"></i>
@@ -18,23 +13,21 @@
         <i class="iconfont icondev"></i>
       </div>
       <!-- 下拉按钮 -->
-      <div
-        class="dropBtn iconfont iconcaidan"
-        v-show="!list"
-        @click="isDrop = true"
-      ></div>
+      <div class="dropBtn iconfont iconcaidan" v-show="!list" @click="isDrop = true"></div>
     </div>
     <!-- menu mask -->
     <div class="mask" v-show="isDrop" @click="isDrop = false"></div>
     <!-- 下拉菜单 -->
-    <DropMenu :detail="detail" :index="index" v-if="isDrop"></DropMenu>
+    <DropMenu :detail="detail" :index="index" v-if="isDrop" @uninstall="uninstall"></DropMenu>
     <!-- 列表视图 -->
     <span v-show="list">{{ detail.shortName }}</span>
+    <ListMenu v-show="list" :detail="detail" @uninstall="uninstall"></ListMenu>
   </div>
 </template>
 
 <script>
 import DropMenu from "../components/DropMenu.vue";
+import ListMenu from "../components/ListMenu.vue";
 
 export default {
   data() {
@@ -49,11 +42,16 @@ export default {
     dropOptions: Boolean
   },
   components: {
-    DropMenu
+    DropMenu,
+    ListMenu
   },
   methods: {
     switchStatus() {
       this.$emit("switch");
+    },
+    uninstall() {
+      this.isDrop = false;
+      this.$emit("update");
     }
   }
 };
@@ -156,7 +154,7 @@ export default {
       }
     }
     span {
-      width: 360px;
+      flex: 1;
       text-align: left;
       overflow: hidden;
       text-overflow: ellipsis;

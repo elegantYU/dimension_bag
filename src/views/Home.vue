@@ -4,18 +4,8 @@
     <div class="header">
       <div class="search">
         <i class="iconfont iconicon_search"></i>
-        <input
-          type="text"
-          placeholder="搜索插件"
-          autofocus
-          v-model="keyWords"
-          @keyup="searchExts"
-        />
-        <i
-          class="iconfont iconguanbi"
-          v-show="keyWords"
-          @click="getExtsData"
-        ></i>
+        <input type="text" placeholder="搜索插件" autofocus v-model="keyWords" @keyup="searchExts" />
+        <i class="iconfont iconguanbi" v-show="keyWords" @click="getExtsData"></i>
       </div>
       <i
         :class="[
@@ -36,12 +26,11 @@
           :list="viewList"
           :index="i"
           @switch="changeEnable(i, true)"
+          @update="getExtsData"
         ></Item>
       </transition-group>
       <!-- 当无已启动插件时 -->
-      <p class="noEnableExt" v-show="!enabledExts.length">
-        还没有启动中的插件QAQ
-      </p>
+      <p class="noEnableExt" v-show="!enabledExts.length">还没有启动中的插件QAQ</p>
       <transition-group tag="div" class="disabledExts">
         <Item
           v-for="(v, i) in disabledExts"
@@ -50,6 +39,7 @@
           :list="viewList"
           :index="i"
           @switch="changeEnable(i, false)"
+          @update="getExtsData"
         ></Item>
       </transition-group>
     </div>
@@ -112,6 +102,7 @@ export default {
     switchListView() {
       this.viewList = !this.viewList;
       this.$store.commit("setListStyle", this.viewList);
+      // 持久化处理
     },
     // 激活&关闭
     changeEnable(index, enabled) {
@@ -130,12 +121,19 @@ export default {
     },
     // 搜索框查询插件 (只查询插件名)
     searchExts() {
-      const words = this.keyWords;
+      let words = this.keyWords;
+      // 轻微模糊查询
+      const filterExt = arr =>
+        arr.filter(v => {
+          if (v.name.toLowerCase().search(words) >= 0) {
+            return v;
+          }
+        });
+
       if (words) {
-        this.enabledExts = this.enabledExts.filter(v => v.name.includes(words));
-        this.disabledExts = this.disabledExts.filter(v =>
-          v.name.includes(words)
-        );
+        words = words.toLowerCase();
+        this.enabledExts = filterExt(this.enabledExts);
+        this.disabledExts = filterExt(this.disabledExts);
       } else {
         this.enabledExts = [...this.$store.state.enabledExts];
         this.disabledExts = [...this.$store.state.disabledExts];

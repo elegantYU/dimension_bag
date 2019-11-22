@@ -2,7 +2,7 @@
  * @Author: elegantYU
  * @Date: 2019-11-16 10:40:14
  * @Last Modified by: elegantYU
- * @Last Modified time: 2019-11-21 18:18:35
+ * @Last Modified time: 2019-11-22 10:55:02
  */
 import { APPID, getAll, setEnabled, uninstall } from "./utils";
 
@@ -19,7 +19,10 @@ const actionMap = new Map([
   ],
   [
     "uninstall",
-    sendResponse => ({ data: { id } }) => uninstall(id).then(sendResponse)
+    sendResponse => ({ data: { id } }) =>
+      uninstall(id)
+        .then(sendResponse({ msg: true }))
+        .catch(_ => _)
   ]
 ]);
 

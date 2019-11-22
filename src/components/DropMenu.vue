@@ -52,7 +52,7 @@ export default {
     },
     // 简介
     getProfile() {
-      this.$emit("getProfile", this.detail);
+      this.$emit("getProfile");
     },
     // 配置
     getOptionsUrl() {
@@ -60,8 +60,9 @@ export default {
     },
     unInstall() {
       const data = { id: this.detail.id };
-      console.log(data);
-      uninstall();
+      uninstall(data).then(() => {
+        this.$emit("uninstall");
+      });
     }
   }
 };
