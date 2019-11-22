@@ -1,16 +1,22 @@
 <template>
-  <div id="app">
-    <!-- <Tabs></Tabs> -->
+  <div id="app" :class="{ blurMask: active }">
     <router-view />
   </div>
 </template>
 
 <script>
-// import Tabs from "./components/Tabs.vue";
-
 export default {
-  components: {
-    // Tabs
+  data() {
+    return {
+      active: false
+    };
+  },
+  watch: {
+    "$store.state.blurMask": {
+      handler(curr) {
+        this.active = curr;
+      }
+    }
   }
 };
 </script>
@@ -28,5 +34,8 @@ export default {
   box-shadow: rgba(#000, 0.25) 0 0 20px 0;
   margin: 0 auto;
   overflow: hidden;
+  &.blurMask {
+    filter: blur(0.3rem);
+  }
 }
 </style>

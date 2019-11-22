@@ -2,9 +2,9 @@
  * @Author: elegantYU
  * @Date: 2019-11-16 10:40:14
  * @Last Modified by: elegantYU
- * @Last Modified time: 2019-11-22 10:55:02
+ * @Last Modified time: 2019-11-22 23:59:37
  */
-import { APPID, getAll, setEnabled, uninstall } from "./utils";
+import { APPID, get, getAll, setEnabled, uninstall } from "./utils";
 
 const actionMap = new Map([
   ["appId", sendResponse => ({ APPID }) => sendResponse(APPID) || true],
@@ -12,6 +12,7 @@ const actionMap = new Map([
     "getAll",
     sendResponse => () => getAll().then(async data => sendResponse(data))
   ],
+  ["get", sendResponse => ({ id }) => get(id).then(info => sendResponse(info))],
   [
     "setEnabled",
     sendResponse => ({ data: { id, enabled } }) =>

@@ -2,7 +2,7 @@
  * @Author: elegantYU
  * @Date: 2019-11-16 11:31:44
  * @Last Modified by: elegantYU
- * @Last Modified time: 2019-11-22 10:54:18
+ * @Last Modified time: 2019-11-22 23:43:36
  */
 const appId = () =>
   new Promise(resolve => {
@@ -10,6 +10,20 @@ const appId = () =>
       { command: "management", action: "appId" },
       id => {
         resolve(id);
+      }
+    );
+  });
+
+const get = data =>
+  new Promise(resolve => {
+    chrome.runtime.sendMessage(
+      {
+        command: "management",
+        action: "get",
+        data
+      },
+      info => {
+        resolve(info);
       }
     );
   });
@@ -44,4 +58,4 @@ const uninstall = data =>
     );
   });
 
-export { appId, getAll, setEnabled, uninstall };
+export { appId, get, getAll, setEnabled, uninstall };

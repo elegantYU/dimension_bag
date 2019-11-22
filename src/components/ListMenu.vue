@@ -4,10 +4,16 @@
       <li
         v-for="(v, i) in menu"
         :key="i"
-        :class="['iconfont', v.icon, {readonly: v.name === '配置' && !detail.optionsUrl,
-          warn: v.name === '卸载'}]"
+        :class="[
+          'iconfont',
+          v.icon,
+          {
+            readonly: v.name === '配置' && !detail.optionsUrl,
+            warn: v.name === '卸载'
+          }
+        ]"
         :title="v.name"
-        @click="switchOptions"
+        @click="switchOptions(v)"
       ></li>
     </ul>
   </div>
@@ -31,13 +37,13 @@ export default {
     detail: Object
   },
   methods: {
-    switchOptions() {
+    switchOptions({ name }) {
       const nameMap = new Map([
         ["简介", () => this.getProfile()],
         ["配置", () => this.getOptionsUrl()],
         ["卸载", () => this.unInstall()]
       ]);
-      nameMap.get(nameMap)();
+      nameMap.get(name)();
     },
     getProfile() {
       this.$emit("getProfile");

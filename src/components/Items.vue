@@ -1,7 +1,12 @@
 <template>
   <div :class="['item', { disabled: !detail.enabled }, { list: list }]">
     <div class="iconWrapper">
-      <img :src="detail.icon" alt :title="detail.shortName" @click="switchStatus" />
+      <img
+        :src="detail.icon"
+        alt
+        :title="detail.shortName"
+        @click="switchStatus"
+      />
       <!-- 类型icon -->
       <div class="devIcon" v-if="detail.installType === 'development'">
         <i class="iconfont iconother"></i>
@@ -13,26 +18,49 @@
         <i class="iconfont icondev"></i>
       </div>
       <!-- 下拉按钮 -->
-      <div class="dropBtn iconfont iconcaidan" v-show="!list" @click="isDrop = true"></div>
+      <div
+        class="dropBtn iconfont iconcaidan"
+        v-show="!list"
+        @click="isDrop = true"
+      ></div>
     </div>
     <!-- menu mask -->
     <div class="mask" v-show="isDrop" @click="isDrop = false"></div>
     <!-- 下拉菜单 -->
-    <DropMenu :detail="detail" :index="index" v-if="isDrop" @uninstall="uninstall"></DropMenu>
+    <DropMenu
+      v-show="isDrop"
+      :detail="detail"
+      :index="index"
+      @getProfile="getProfile"
+      @uninstall="uninstall"
+    ></DropMenu>
     <!-- 列表视图 -->
     <span v-show="list">{{ detail.shortName }}</span>
-    <ListMenu v-show="list" :detail="detail" @uninstall="uninstall"></ListMenu>
+    <ListMenu
+      v-show="list"
+      :detail="detail"
+      @getProfile="getProfile"
+      @uninstall="uninstall"
+    ></ListMenu>
+    <!-- 简介 -->
+    <Profile
+      :id="detail.id"
+      v-if="profileShow"
+      @close="profileShow = false"
+    ></Profile>
   </div>
 </template>
 
 <script>
 import DropMenu from "../components/DropMenu.vue";
 import ListMenu from "../components/ListMenu.vue";
+import Profile from "../components/Profile.vue";
 
 export default {
   data() {
     return {
-      isDrop: false
+      isDrop: false,
+      profileShow: false
     };
   },
   props: {
@@ -43,7 +71,8 @@ export default {
   },
   components: {
     DropMenu,
-    ListMenu
+    ListMenu,
+    Profile
   },
   methods: {
     switchStatus() {
@@ -52,6 +81,11 @@ export default {
     uninstall() {
       this.isDrop = false;
       this.$emit("update");
+    },
+    getProfile() {
+      this.$store.commit("setBlur", true);
+      this.profileShow = true;
+      this.isDrop = false;
     }
   }
 };
