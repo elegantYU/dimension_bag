@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div :class="['home', { blurMask: active }]">
     <!-- header -->
     <div class="header">
       <div class="search">
@@ -54,6 +54,7 @@
           @update="getExtsData"
         ></Item>
       </transition-group>
+      <!-- again -->
     </div>
   </div>
 </template>
@@ -62,10 +63,12 @@
 import Item from "../components/Items.vue";
 import { appId, getAll, setEnabled } from "./service/management";
 import { nameSort } from "./service/utils";
+import profile from "./domComponent/Profile/main";
 
 export default {
   data() {
     return {
+      active: false,
       selfId: null, // 自身id
       viewList: false, //  列表视图
       enabledExts: [], //  已激活插件
@@ -75,6 +78,14 @@ export default {
   },
   components: {
     Item
+  },
+  watch: {
+    "$store.state.blurMask": {
+      handler(curr) {
+        this.active = curr;
+        curr && profile();
+      }
+    }
   },
   mounted() {
     this.viewList = this.$store.state.listStyle;
@@ -154,6 +165,10 @@ export default {
   background-color: #fff;
   box-sizing: border-box;
   padding: 20px 0 0;
+  transition: filter 0.2s ease;
+  &.blurMask {
+    filter: blur(0.3rem);
+  }
   .header {
     $headerHeight: 40px;
     height: $headerHeight;

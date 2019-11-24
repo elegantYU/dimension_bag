@@ -42,25 +42,17 @@
       @getProfile="getProfile"
       @uninstall="uninstall"
     ></ListMenu>
-    <!-- 简介 -->
-    <Profile
-      :id="detail.id"
-      v-if="profileShow"
-      @close="profileShow = false"
-    ></Profile>
   </div>
 </template>
 
 <script>
 import DropMenu from "../components/DropMenu.vue";
 import ListMenu from "../components/ListMenu.vue";
-import Profile from "../components/Profile.vue";
 
 export default {
   data() {
     return {
-      isDrop: false,
-      profileShow: false
+      isDrop: false
     };
   },
   props: {
@@ -71,8 +63,7 @@ export default {
   },
   components: {
     DropMenu,
-    ListMenu,
-    Profile
+    ListMenu
   },
   methods: {
     switchStatus() {
@@ -83,8 +74,8 @@ export default {
       this.$emit("update");
     },
     getProfile() {
+      this.$store.commit("setCurrId", this.detail.id);
       this.$store.commit("setBlur", true);
-      this.profileShow = true;
       this.isDrop = false;
     }
   }

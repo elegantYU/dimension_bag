@@ -1,25 +1,8 @@
 <template>
-  <div id="app" :class="{ blurMask: active }">
+  <div id="app">
     <router-view />
   </div>
 </template>
-
-<script>
-export default {
-  data() {
-    return {
-      active: false
-    };
-  },
-  watch: {
-    "$store.state.blurMask": {
-      handler(curr) {
-        this.active = curr;
-      }
-    }
-  }
-};
-</script>
 
 <style lang="scss" scoped>
 #app {
@@ -34,8 +17,5 @@ export default {
   box-shadow: rgba(#000, 0.25) 0 0 20px 0;
   margin: 0 auto;
   overflow: hidden;
-  &.blurMask {
-    filter: blur(0.3rem);
-  }
 }
 </style>
