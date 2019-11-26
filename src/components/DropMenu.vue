@@ -131,6 +131,10 @@ export default {
       }
       &:hover {
         background-color: #fafafa;
+        color: #1b93fb;
+        &.readonly {
+          color: #999;
+        }
         &.warn {
           color: #f56c6c;
         }

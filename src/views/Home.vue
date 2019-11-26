@@ -4,18 +4,8 @@
     <div class="header">
       <div class="search">
         <i class="iconfont iconicon_search"></i>
-        <input
-          type="text"
-          placeholder="搜索插件"
-          autofocus
-          v-model="keyWords"
-          @keyup="searchExts"
-        />
-        <i
-          class="iconfont iconguanbi"
-          v-show="keyWords"
-          @click="getExtsData"
-        ></i>
+        <input type="text" placeholder="搜索插件" autofocus v-model="keyWords" @keyup="searchExts" />
+        <i class="iconfont iconguanbi" v-show="keyWords" @click="getExtsData"></i>
       </div>
       <i
         :class="[
@@ -40,9 +30,7 @@
         ></Item>
       </transition-group>
       <!-- 当无已启动插件时 -->
-      <p class="noEnableExt" v-show="!enabledExts.length">
-        还没有启动中的插件QAQ
-      </p>
+      <p class="noEnableExt" v-show="!enabledExts.length">还没有启动中的插件QAQ</p>
       <transition-group tag="div" class="disabledExts">
         <Item
           v-for="(v, i) in disabledExts"
@@ -100,7 +88,6 @@ export default {
           return getAll();
         })
         .then(data => {
-          console.log(data);
           const noThemeAndSelf = data
             .filter(v => v.type !== "theme")
             .filter(v => v.id !== this.selfId)
@@ -167,6 +154,7 @@ export default {
   padding: 20px 0 0;
   transition: filter 0.2s ease;
   &.blurMask {
+    will-change: filter;
     filter: blur(0.3rem);
   }
   .header {
@@ -178,7 +166,7 @@ export default {
     padding: 0 20px;
     margin-bottom: 10px;
     .search {
-      width: 70%;
+      width: 80%;
       height: 100%;
       border-radius: 5px;
       background-color: rgb(242, 242, 242);
