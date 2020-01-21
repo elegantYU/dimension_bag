@@ -1,29 +1,32 @@
-# dimension-bag
+# 次元袋(袖里乾坤，掌中天地)
 
-## Project setup
-```
-yarn install
-```
+## 这是一款简洁方便的插件收纳管理器
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+## 更新日志
 
-### Compiles and minifies for production
-```
-yarn run build
-```
+- 2020/01/21 1.0.0 版本
 
-### Run your tests
-```
-yarn run test
-```
+  - 使用 TS 重构插件代码
+  - 重构了设置和插件菜单的布局及功能点
+  - 终于找到一个 logo(by：夏英俊)
 
-### Lints and fixes files
-```
-yarn run lint
-```
+- 2019/11/26 0.2.0 版本
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+  - 优化本地模糊查询
+  - 列表视图下的选项功能
+  - 每个插件可打开自身配置页面及简介面板
+  - 简介面板中可跳转谷歌商店访问详情
+
+- 2019/11/21 0.1.0 版本
+
+  - 暂时下掉 header
+  - 选项菜单样式及功能进一步完善
+  - 拼音首字母排序
+
+- 2019/11/17 0.0.0 版本
+
+  - 插件的激活与关闭功能实现
+  - 本地插件搜索功能
+  - 插件列表视图切换
+
+身外无一物，袖里藏乾坤。
