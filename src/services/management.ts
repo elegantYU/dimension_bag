@@ -28,6 +28,16 @@ const get = (data: Object) =>
     );
   });
 
+const getSelf = (): Promise<Object> => 
+  new Promise(resolve => {
+    chrome.runtime.sendMessage({
+      command: "management",
+      action: "getSelf",
+    }, info => {
+      resolve(info)
+    })
+  })
+
 interface Exts {
   [index: string]: any;
 }
@@ -67,4 +77,4 @@ const uninstall = (data: Object): Promise<void> =>
     );
   });
 
-export { appId, get, getAll, setEnabled, uninstall };
+export { appId, get, getSelf, getAll, setEnabled, uninstall };

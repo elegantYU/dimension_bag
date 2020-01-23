@@ -91,7 +91,7 @@ export default Vue.extend({
         ["listMode", (active: boolean): void => this.listMode(!active)],
         ["developMode", (active: boolean): void => this.developMode(!active)],
         ["chromeWebStore", () => this.$emit("chrome")],
-        ["introduce", (active: boolean): void => this.introduce(!active)]
+        ["introduce", () => this.$emit("intro")]
       ]);
 
       const F: any = handlerMap.get(field);
@@ -109,8 +109,7 @@ export default Vue.extend({
     developMode(active: boolean): void {
       this.$store.dispatch("setDevMode", active);
       syncSet({ developMode: active }).then(_ => this.$emit("updateMode"));
-    },
-    introduce(active: boolean): void {}
+    }
   }
 });
 </script>

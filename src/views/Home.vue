@@ -47,14 +47,16 @@
     </div>
     <!-- 第二层 高斯模糊蒙版 + 弹出层 -->
     <transition name="fade">
-      <div class="maskBox" v-if="isSetting || isOptions || isProfile">
+      <div class="maskBox" v-if="isSetting || isOptions || isProfile || isIntro">
         <div class="mask" @click="closePop"></div>
         <!-- 设置 -->
-        <Setting v-show="isSetting" @updateMode="$emit('updateMode')" @chrome="download"></Setting>
+        <Setting v-show="isSetting" @updateMode="$emit('updateMode')" @chrome="download" @intro="openIntro"></Setting>
         <!-- item 设置 -->
         <Options v-show="isOptions" :item="currItem" @profile="getProfile(v)"></Options>
         <!-- profile -->
         <Profile v-show="isProfile" :item="currItem"></Profile>
+        <!-- introduce -->
+        <Intro v-show="isIntro"></Intro>
       </div>
     </transition>
   </div>
@@ -68,6 +70,7 @@ import Item from "../components/Item.vue";
 import Setting from "../components/Setting.vue";
 import Options from "../components/Options.vue";
 import Profile from "../components/Profile.vue";
+import Intro from "../components/Introduce.vue";
 import { appId, getAll } from "../services/management";
 import { create } from "../services/tabs";
 import { nameSort } from "../services/utils";
@@ -96,7 +99,8 @@ export default Vue.extend({
       listMode: false,
       isSetting: false,
       isOptions: false,
-      isProfile: false
+      isProfile: false,
+      isIntro: false
     };
   },
   watch: {
@@ -112,7 +116,8 @@ export default Vue.extend({
     Item,
     Setting,
     Options,
-    Profile
+    Profile,
+    Intro
   },
   mounted() {
     this.getExtsData();
@@ -178,11 +183,17 @@ export default Vue.extend({
       this.isOptions = false;
       this.isProfile = true;
     },
+    // 打开简介
+    openIntro() {
+      this.isSetting = false;
+      this.isIntro = true;
+    },
     // 清除所有弹窗类
     closePop() {
       this.isSetting = false;
       this.isOptions = false;
       this.isProfile = false;
+      this.isIntro = false;
     }
   }
 });

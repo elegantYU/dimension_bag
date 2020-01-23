@@ -4,7 +4,7 @@
  * @Last Modified by: elegantYU
  * @Last Modified time: 2019-11-23 10:26:13
  */
-import { APPID, get, getAll, setEnabled, uninstall } from "./utils";
+import { APPID, get, getSelf, getAll, setEnabled, uninstall } from "./utils";
 
 const actionMap = new Map([
   ["appId", sendResponse => ({ APPID }) => sendResponse(APPID) || true],
@@ -17,6 +17,7 @@ const actionMap = new Map([
     sendResponse => ({ data: { id } }) =>
       get(id).then(info => sendResponse(info))
   ],
+  ["getSelf", sendResponse => () => getSelf().then(info => sendResponse(info))],
   [
     "setEnabled",
     sendResponse => ({ data: { id, enabled } }) =>
