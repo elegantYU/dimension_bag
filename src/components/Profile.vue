@@ -6,6 +6,7 @@
         <h6>{{ item.name }}</h6>
         <p>{{ item.version }}</p>
       </div>
+      <span class="permission" @click="openExtension">{{ permission }}</span>
     </div>
     <div class="content">{{ item.description }}</div>
   </div>
@@ -29,11 +30,18 @@ export default Vue.extend({
       const icons: Ext = this.item.icons;
       console.log("[item]:", this.item.icons);
       return icons[icons.length - 1].url;
+    },
+    permission(): string {
+      return `${this.item.permissions.length}种权限`;
     }
   },
   methods: {
     openHome() {
       const url: string = this.item.homepageUrl;
+      create({ url, active: true });
+    },
+    openExtension() {
+      const url = "chrome://extensions";
       create({ url, active: true });
     }
   }
@@ -45,19 +53,21 @@ export default Vue.extend({
   position: fixed;
   top: 50%;
   left: 50%;
-  width: 300px;
+  width: 340px;
   height: auto;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -40%);
+  opacity: 0;
   border-radius: 5px;
   padding: 15px 20px;
   background-color: var(--theme-background-default);
+  animation: slideDown 0.1s ease-in 0.1s forwards;
 
   .header {
     width: 100%;
     height: 40px;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     margin-bottom: 10px;
     img {
       display: block;
@@ -66,9 +76,10 @@ export default Vue.extend({
       margin-right: 10px;
     }
     .detail {
-      width: calc(100% - 50px);
+      width: 120px;
       flex: 1;
       cursor: pointer;
+      margin-right: auto;
       h6 {
         font-size: 16px;
         margin-bottom: 4px;
@@ -82,6 +93,17 @@ export default Vue.extend({
         text-align: left;
       }
     }
+
+    .permission {
+      height: 20px;
+      padding: 2px 4px;
+      line-height: 20px;
+      font-size: 12px;
+      color: #000;
+      cursor: pointer;
+      margin-left: 10px;
+      background-color: var(--theme-readOnly-bg);
+    }
   }
 
   .content {
@@ -91,6 +113,17 @@ export default Vue.extend({
     text-align: left;
     color: var(--theme-fontColor-sub);
     line-height: 1.5;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translate(-50%, -40%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%);
+    opacity: 1;
   }
 }
 </style>

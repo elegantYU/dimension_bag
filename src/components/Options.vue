@@ -38,7 +38,7 @@ export default Vue.extend({
   },
   methods: {
     initState() {
-      if (this.item.enabled) {
+      if (this.item.enabled && this.item.optionsUrl) {
         this.options.splice(1, 0, { name: "配置", icon: "iconpeizhi" });
         /* if (this.$store.state.developMode) {
           this.options.splice(this.options.length - 1, 0, {
@@ -83,13 +83,16 @@ export default Vue.extend({
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -40%);
+  opacity: 0;
   width: 260px;
   height: auto;
   padding: 20px 0;
   background-color: var(--theme-background-default);
   border-radius: 5px;
   box-shadow: rgba(var(--theme-boxShadow), 0.15) 0 0 8px;
+  animation: slideDown 0.1s ease-in 0.1s forwards;
+
   h6 {
     font-size: 16px;
     text-align: center;
@@ -139,6 +142,17 @@ export default Vue.extend({
         }
       }
     }
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translate(-50%, -40%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%);
+    opacity: 1;
   }
 }
 </style>

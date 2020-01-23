@@ -15,7 +15,12 @@
             @profile="getProfile(v)"
           ></Item>
         </transition-group>
-        <transition-group tag="div" class="disableExts" name="scale" v-show="disabledExt.length">
+        <transition-group
+          tag="div"
+          class="disableExts"
+          name="scale"
+          v-show="disabledExt.length"
+        >
           <Item
             v-for="v in disabledExt"
             :key="v.id"
