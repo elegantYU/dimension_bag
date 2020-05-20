@@ -26,7 +26,7 @@ import Vue from "vue";
 import { getSelf } from '../services/management'
 
 export default Vue.extend({
-	data() {
+	data(): any {
 		return  {
 			item: {}
 		}
@@ -40,7 +40,7 @@ export default Vue.extend({
 				console.log("[myself]:", data)
 				this.item = Object.assign({}, data)
 			})
-		}
+		},
 	}
 })
 </script>

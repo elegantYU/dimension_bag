@@ -109,6 +109,12 @@ export default Vue.extend({
     developMode(active: boolean): void {
       this.$store.dispatch("setDevMode", active);
       syncSet({ developMode: active }).then(_ => this.$emit("updateMode"));
+    },
+    i18n() {
+      this.settingList[0].name = chrome.i18n.getMessage("nightMode")
+      this.settingList[1].name = chrome.i18n.getMessage("listMode")
+      this.settingList[2].name = chrome.i18n.getMessage("googleStore")
+      this.settingList[3].name = chrome.i18n.getMessage("profile")
     }
   }
 });

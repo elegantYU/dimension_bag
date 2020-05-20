@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div class="search">
       <i class="iconfont iconicon_search"></i>
-      <input type="text" placeholder="搜索本地插件" v-model="keyWords" @keyup="$emit('search', keyWords)" />
+      <input type="text" :placeholder="placeholder" v-model="keyWords" @keyup="search" />
       <i class="iconfont iconguanbi" v-show="keyWords" @click="cancle"></i>
     </div>
     <i class="iconfont iconshezhi" @click="$emit('setting')"></i>
@@ -15,10 +15,17 @@ import Vue from "vue";
 export default Vue.extend({
   data() {
     return {
-      keyWords: ""
+      keyWords: "",
+      placeholder: ""
     };
   },
+  mounted() {
+    this.placeholder = chrome.i18n.getMessage("searchPlaceHolder")
+  },
   methods: {
+    search() {
+      this.$emit('search', this.keyWords)
+    },
     cancle() {
       this.keyWords = "";
       this.$emit("search", "");

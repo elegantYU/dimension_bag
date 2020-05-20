@@ -2,7 +2,8 @@
   <div :class="['wrapper', { 'listMode': mode }]">
     <div :class="['card', { disabled: !item.enabled }]" v-if="!mode">
       <div class="cardBox" @click="switchStatus">
-        <img :src="extLogo" :title="item.shortName" />
+        <img v-if="item.icons && item.icons.length" :src="item.icons[item.icons.length - 1].url" :title="item.shortName" />
+        <p v-else>{{ splitName }}</p>
         <!-- 来源类型icon -->
         <i class="devIcon iconfont iconother" v-if="item.installType === 'development'"></i>
         <i class="devIcon iconfont iconapp1 app" v-else-if="item.isApp"></i>
@@ -58,7 +59,11 @@ export default Vue.extend({
       }
 
       const icons: Ext = this.item.icons;
-      return icons[icons.length - 1].url;
+      return icons && icons.length ? icons[icons.length - 1].url : "";
+    },
+    splitName(): string {
+      const {shortName} = this.item
+      return shortName.substr(0, 1)
     }
   },
   mounted() {
@@ -134,6 +139,20 @@ export default Vue.extend({
         width: 35px;
         transition: transform 0.2s;
       }
+
+      & > p {
+        display: block;
+        width: 35px;
+        height: 35px;
+        background-color: rgb(88, 88, 88);
+        text-align: center;
+        line-height: 35px;
+        font-size: 20px;
+        font-weight: bold;
+        border-radius: 6px;
+        color: #fff;
+      }
+      
       .devIcon {
         position: absolute;
         bottom: 0;

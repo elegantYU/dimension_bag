@@ -1,0 +1,32 @@
+{
+  "name": {
+    "message": "Dimension Bag"
+  },
+  "shortName": {
+    "message": "Dimension Bag(Extension Manager)"
+  },
+  "description": {
+    "message": "A smooth and simple extension that is convenient for managing your browser extension 😉"
+  },
+  "searchPlaceHolder": {
+    "message": "Search local extensions"
+  },
+  "nightMode": {
+    "message": "night mode"
+  },
+  "listMode": {
+    "message": "list mode"
+  },
+  "googleStore": {
+    "message": "google store"
+  },
+  "profile": {
+    "message": "profile"
+  },
+  "emptySpace": {
+    "message": "Your store is empty ... Go download it now~"
+  },
+  "searchEmpty": {
+    "message": "Can't find the extension QAQ you want ... Go download it now"
+  }
+}

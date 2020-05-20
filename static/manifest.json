@@ -1,11 +1,12 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "manifest_version": 2,
   "minimum_chrome_version": "56.0.0",
-  "name": "次元袋",
-  "short_name": "次元袋",
-  "description": "一款流畅简洁，方便管理你浏览器插件的插件😉",
+  "name": "__MSG_name__",
+  "short_name": "__MSG_shortName__",
+  "description": "__MSG_description__",
   "offline_enabled": true,
+  "default_locale": "zh_CN",
   "icons": {
     "128": "static/icon/logo.png"
   },
@@ -19,7 +20,7 @@
       "38": "static/icon/logo.png"
     },
     "default_popup": "index.html",
-    "default_title": "次元袋"
+    "default_title": "__MSG_name__"
   },
   "permissions": [
     "tabs",

@@ -1,0 +1,32 @@
+{
+  "name": {
+    "message": "次元袋"
+  },
+  "shortName": {
+    "message": "次元袋(插件管理器)"
+  },
+  "description": {
+    "message": "一款流畅简洁，方便管理你浏览器插件的插件😉"
+  },
+  "searchPlaceHolder": {
+    "message": "搜索本地插件"
+  },
+  "nightMode": {
+    "message": "夜间模式"
+  },
+  "listMode": {
+    "message": "列表视图"
+  },
+  "googleStore": {
+    "message": "谷歌商店"
+  },
+  "profile": {
+    "message": "插件简介"
+  },
+  "emptySpace": {
+    "message": "您的插件空空如也...快去下载吧～"
+  },
+  "searchEmpty": {
+    "message": "找不到想要的插件QAQ...前往下载"
+  }
+}

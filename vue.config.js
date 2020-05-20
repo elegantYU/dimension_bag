@@ -29,6 +29,10 @@ module.exports = {
           from: path.resolve(__dirname, "static/icon"),
           to: path.resolve(__dirname, "dist/static/icon"),
           cache: true
+        },
+        {
+          from: 'static/_locales',
+          to: '_locales'
         }
       ])
     ]

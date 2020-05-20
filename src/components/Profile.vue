@@ -1,7 +1,8 @@
 <template>
   <div class="wrapper">
     <div class="header">
-      <img :src="extLogo" alt />
+      <img v-if="logo" :src="logo" alt />
+      <p v-else>{{ splitName }}</p>
       <div class="detail" @click="openHome">
         <h6>{{ item.name }}</h6>
         <p>{{ item.version }}</p>
@@ -17,23 +18,32 @@ import Vue from "vue";
 import { create } from "../services/tabs";
 
 export default Vue.extend({
+  data() {
+    return {
+      splitName: '',
+      logo: ''
+    }
+  },
   props: {
     item: Object
   },
   computed: {
-    extLogo(): string {
-      interface Ext {
-        icons: Array<Object>;
-        [propName: string]: any;
-      }
+    // extLogo(): string {
+    //   interface Ext {
+    //     icons: Array<Object>;
+    //     [propName: string]: any;
+    //   }
 
-      const icons: Ext = this.item.icons;
-      console.log("[item]:", this.item.icons);
-      return icons[icons.length - 1].url;
-    },
+    //   const icons: Ext = this.item.icons;
+    //   return icons && icons[icons.length - 1].url;
+    // },
     permission(): string {
       return `${this.item.permissions.length}种权限`;
     }
+  },
+  mounted() {
+    this.splitName = this.item.shortName.substr(0, 1)
+    this.logo = this.item.icons[this.item.icons.length - 1].url
   },
   methods: {
     openHome() {
@@ -43,7 +53,14 @@ export default Vue.extend({
     openExtension() {
       const url = "chrome://extensions";
       create({ url, active: true });
-    }
+    },
+    // splitName() {
+    //   setTimeout(() => {
+    //     const { shortName } = this.item
+    //     console.log('shortName', this.item)
+    //     return shortName.substr(0, 1)
+    //   })
+    // }
   }
 });
 </script>
@@ -75,6 +92,21 @@ export default Vue.extend({
       height: 40px;
       margin-right: 10px;
     }
+
+    & > p {
+      display: block;
+      width: 35px;
+      height: 35px;
+      background-color: rgb(88, 88, 88);
+      text-align: center;
+      line-height: 35px;
+      font-size: 20px;
+      font-weight: bold;
+      border-radius: 6px;
+      color: #fff;
+      margin-right: 10px;
+    }
+
     .detail {
       width: 120px;
       flex: 1;

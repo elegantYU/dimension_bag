@@ -33,7 +33,7 @@
         </transition-group>
         <!-- 若无插件 -->
         <transition name="fade">
-          <div class="noMore" v-if="!allExts.length" @click="download">您的插件空空如也...快去下载吧～</div>
+          <div class="noMore" v-if="!allExts.length" @click="download">{{emptySpace}}</div>
         </transition>
         <!-- 搜索结果为空 -->
         <transition name="fade">
@@ -41,7 +41,7 @@
             class="noMore"
             v-if="!enabledExt.length && !disabledExt.length"
             @click="download"
-          >找不到想要的插件QAQ...前往下载</div>
+          >{{ searchEmpty }}</div>
         </transition>
       </div>
     </div>
@@ -100,7 +100,9 @@ export default Vue.extend({
       isSetting: false,
       isOptions: false,
       isProfile: false,
-      isIntro: false
+      isIntro: false,
+      emptySpace: "",
+      searchEmpty: ""
     };
   },
   watch: {
@@ -121,6 +123,7 @@ export default Vue.extend({
   },
   mounted() {
     this.getExtsData();
+    this.i18n()
   },
   methods: {
     getExtsData() {
@@ -131,7 +134,6 @@ export default Vue.extend({
           return getAll();
         })
         .then((data: AllExts): void => {
-          console.log("[所有插件]:", data);
           this.allExts = data
             .filter((v: Ext) => v.type !== "theme")
             .filter((v: Ext) => v.id !== this.id);
@@ -194,6 +196,11 @@ export default Vue.extend({
       this.isOptions = false;
       this.isProfile = false;
       this.isIntro = false;
+    },
+    // i18n
+    i18n() {
+      this.emptySpace = chrome.i18n.getMessage("emptySpace")
+      this.searchEmpty = chrome.i18n.getMessage("searchEmpty")
     }
   }
 });
