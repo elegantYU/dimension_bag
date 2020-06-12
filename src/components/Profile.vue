@@ -13,16 +13,20 @@
   </div>
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import Vue from "vue";
 import { create } from "../services/tabs";
 
 export default Vue.extend({
   data() {
     return {
-      splitName: '',
-      logo: ''
-    }
+      detail: {
+        homepageUrl: "",
+        id: ""
+      },
+      splitName: "",
+      logo: ""
+    };
   },
   props: {
     item: Object
@@ -42,30 +46,25 @@ export default Vue.extend({
     }
   },
   mounted() {
-    this.splitName = this.item.shortName.substr(0, 1)
-    this.logo = this.item.icons[this.item.icons.length - 1].url
+    this.detail = Object.assign({}, this.item);
+    this.splitName = this.item.shortName.substr(0, 1);
+    this.logo = this.item.icons[this.item.icons.length - 1].url;
   },
   methods: {
     openHome() {
-      const url: string = this.item.homepageUrl;
+      const url: string = this.detail.homepageUrl;
       create({ url, active: true });
     },
     openExtension() {
-      const url = "chrome://extensions";
+      const id: string = this.detail.id;
+      const url = `https://chrome.google.com/webstore/detail/${id}`;
       create({ url, active: true });
-    },
-    // splitName() {
-    //   setTimeout(() => {
-    //     const { shortName } = this.item
-    //     console.log('shortName', this.item)
-    //     return shortName.substr(0, 1)
-    //   })
-    // }
+    }
   }
 });
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .wrapper {
   position: fixed;
   top: 50%;
