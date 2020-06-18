@@ -1,5 +1,7 @@
 # 次元袋(袖里乾坤，掌中天地)
 
+[![chrome web store](https://img.shields.io/chrome-web-store/v/gkpgjohiphglnodoklihmeoeeebomjhe.svg)](https://chrome.google.com/webstore/detail/gkpgjohiphglnodoklihmeoeeebomjhe) [![extension downloads](https://img.shields.io/chrome-web-store/users/gkpgjohiphglnodoklihmeoeeebomjhe.svg?label=users)](https://chrome.google.com/webstore/detail/gkpgjohiphglnodoklihmeoeeebomjhe)
+
 ## 这是一款简洁方便的插件收纳管理器
 
 ## 更新日志
